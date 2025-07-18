@@ -10,34 +10,12 @@ document.addEventListener("DOMContentLoaded", () => {
     articulo.innerHTML = `
       <img src="${noticia.imagen}" alt="${noticia.titulo}" />
       <div class="news-content">
-        <h3><a href="${noticia.enlace}" target="_blank" rel="noopener noreferrer">${noticia.titulo}</a></h3>
+        <h3><a href="#">${noticia.titulo}</a></h3>
         <p>${noticia.informacion || noticia.resumen}</p>
       </div>
     `;
     return articulo;
   }
-
-  // Función para mostrar una sección específica y ocultar las demás
-  function mostrarSeccion(idSeccion) {
-    const todasLasSecciones = document.querySelectorAll('main.main-content > section, #daily-news, #politica-anuncios');
-    todasLasSecciones.forEach(seccion => {
-      seccion.style.display = 'none';
-    });
-
-    const seccionAMostrar = document.getElementById(idSeccion);
-    if (seccionAMostrar) {
-      seccionAMostrar.style.display = ''; // Mostrar la sección
-    }
-  }
-
-  // Manejar clics en la navegación
-  document.querySelectorAll('nav a[data-section], .logo a[data-section], footer nav a[data-section]').forEach(link => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
-      const idSeccion = event.target.dataset.section;
-      mostrarSeccion(idSeccion);
-    });
-  });
 
   // Cargar noticias diarias en la sección principal
   async function cargarNoticiasDiarias() {
@@ -70,7 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       deportesNews: "Deportes",
       culturaNews: "Cultura",
       opinionNews: "Opinión",
-      recomendadosNews: "Recomendados", // Añadir si tienes una sección de recomendados
     };
 
     contenedores.forEach(async (contenedor) => {
@@ -95,5 +72,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Cargar todo al iniciar
   cargarNoticiasDiarias();
-  mostrarSeccion('daily-news'); // Mostrar la sección de noticias del día por defecto
 });
