@@ -24,15 +24,15 @@
   <!-- Header -->
   <header id="header" class="sticky-header">
     <div class="container header-container">
-      <div class="logo">GlobalHoy</div>
+      <div class="logo"><a href="#" data-section="daily-news">GlobalHoy</a></div>
       <nav class="main-nav">
         <ul>
-          <li><a href="/internacional">Internacional</a></li>
-          <li><a href="/nacional">Nacional</a></li>
-          <li><a href="/tecnologia">Tecnología</a></li>
-          <li><a href="/deportes">Deportes</a></li>
-          <li><a href="/cultura">Cultura</a></li>
-          <li><a href="/opinion">Opinión</a></li>
+          <li><a href="#" data-section="internacional">Internacional</a></li>
+          <li><a href="#" data-section="nacional">Nacional</a></li>
+          <li><a href="#" data-section="tecnologia">Tecnología</a></li>
+          <li><a href="#" data-section="deportes">Deportes</a></li>
+          <li><a href="#" data-section="cultura">Cultura</a></li>
+          <li><a href="#" data-section="opinion">Opinión</a></li>
         </ul>
       </nav>
       <div class="search-social">
@@ -164,6 +164,16 @@
 
   </main>
 
+  <!-- Sección de Política de privacidad y Términos de uso -->
+  <section class="news-section" id="politica-anuncios" style="display: none;">
+    <h2>Política de privacidad y Términos de uso</h2>
+    <div class="content">
+      <p>Aquí iría el contenido detallado de la política de privacidad.</p>
+      <p>Aquí iría el contenido detallado de los términos de uso.</p>
+      <p>Este es un espacio para informar a los usuarios sobre cómo se manejan sus datos y las condiciones de uso del sitio.</p>
+    </div>
+  </section>
+
   <!-- Botón "Ir arriba" -->
   <button id="btnIrArriba" title="Ir arriba">&#8679;</button>
 
@@ -172,8 +182,8 @@
     <div class="container footer-container">
       <p>© 2025 GlobalHoy. Todos los derechos reservados.</p>
       <nav class="footer-nav">
-        <a href="/politica-anuncios">Política de privacidad</a> |
-        <a href="/politica-anuncios">Términos de uso</a>
+        <a href="#" data-section="politica-anuncios">Política de privacidad</a> |
+        <a href="#" data-section="politica-anuncios">Términos de uso</a>
       </nav>
       <form id="suscripcionForm" class="suscripcion-form">
         <label for="emailSuscripcion">Suscríbete al boletín:</label>
