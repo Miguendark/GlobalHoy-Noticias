@@ -1,15 +1,51 @@
 // apiSimulada.js - Ahora se conecta a la Netlify Function
 
-// La API_KEY ya no va aquí, se maneja en la Netlify Function
-
 // Función para obtener noticias de tu Netlify Function
 async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
   let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
 
+  // Mapear categorías amigables a categorías o consultas de NewsAPI
+  let newsApiCategory = '';
+  let newsApiQuery = '';
+
+  switch (categoria.toLowerCase()) {
+    case 'tecnología':
+      newsApiCategory = 'technology';
+      break;
+    case 'deportes':
+      newsApiCategory = 'sports';
+      break;
+    case 'internacional':
+      newsApiQuery = 'noticias internacionales'; // Usar consulta para búsqueda más amplia
+      break;
+    case 'nacional':
+      newsApiQuery = 'noticias nacionales'; // Usar consulta para búsqueda más amplia
+      break;
+    case 'cultura':
+      newsApiQuery = 'cultura';
+      break;
+    case 'opinión':
+      newsApiQuery = 'opinión';
+      break;
+    case 'general': // Para noticias diarias o por defecto
+      newsApiCategory = 'general';
+      break;
+    default:
+      newsApiQuery = categoria; // Si no hay mapeo específico, usar la categoría como consulta
+  }
+
+  // Si se pasó una consulta específica, tiene prioridad
   if (query) {
-    url += `q=${encodeURIComponent(query)}`;
+    newsApiQuery = query;
+  }
+
+  if (newsApiQuery) {
+    url += `q=${encodeURIComponent(newsApiQuery)}`;
+  } else if (newsApiCategory) {
+    url += `category=${encodeURIComponent(newsApiCategory)}`;
   } else {
-    url += `category=${encodeURIComponent(categoria)}`;
+    // Fallback si no se determina categoría ni consulta
+    url += `category=general`;
   }
 
   try {
@@ -36,7 +72,7 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
 
 // Simula la obtención de las noticias más relevantes del día (ahora usa la Netlify Function)
 async function obtenerNoticiasDiarias() {
-  return obtenerNoticiasDesdeAPI('general', 'noticias destacadas'); // Puedes ajustar la query
+  return obtenerNoticiasDesdeAPI('general', 'noticias destacadas'); // Usar categoría 'general' y consulta específica
 }
 
 // La función cargarNoticiasAPI ya no es necesaria aquí, main.js la maneja
