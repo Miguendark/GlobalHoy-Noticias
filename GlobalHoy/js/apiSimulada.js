@@ -1,10 +1,10 @@
-// apiSimulada.js - Ahora se conecta a tu propio servidor proxy
+// apiSimulada.js - Ahora se conecta a la Netlify Function
 
-// La API_KEY ya no va aquí, se maneja en el servidor
+// La API_KEY ya no va aquí, se maneja en la Netlify Function
 
-// Función para obtener noticias de tu servidor proxy
+// Función para obtener noticias de tu Netlify Function
 async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
-  let url = `/api/noticias?`; // Apunta a tu propio servidor
+  let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
 
   if (query) {
     url += `q=${encodeURIComponent(query)}`;
@@ -25,16 +25,16 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
         enlace: article.url,
       }));
     } else {
-      console.error('Error del proxy de noticias:', data.message || data.error);
+      console.error('Error de la Netlify Function:', data.message || data.error);
       return [];
     }
   } catch (error) {
-    console.error('Error al obtener noticias del proxy:', error);
+    console.error('Error al obtener noticias de la Netlify Function:', error);
     return [];
   }
 }
 
-// Simula la obtención de las noticias más relevantes del día (ahora usa el proxy)
+// Simula la obtención de las noticias más relevantes del día (ahora usa la Netlify Function)
 async function obtenerNoticiasDiarias() {
   return obtenerNoticiasDesdeAPI('general', 'noticias destacadas'); // Puedes ajustar la query
 }
