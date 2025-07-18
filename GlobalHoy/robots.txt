@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /privado/
+Allow: /
+
+Sitemap: https://www.globalhoy.com/sitemap.xml

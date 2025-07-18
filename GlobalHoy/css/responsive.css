@@ -1,0 +1,63 @@
+/* Móviles y tablets */
+@media (max-width: 991px) {
+  .header-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .search-social {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .search-social input[type="search"] {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .carousel-btn {
+    font-size: 1.5rem;
+    padding: 5px 10px;
+  }
+
+  .news-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 480px) {
+  .main-nav ul {
+    flex-direction: column;
+  }
+
+  .search-social {
+    flex-direction: column;
+  }
+
+  .search-social input[type="search"] {
+    max-width: 100%;
+  }
+
+  .news-list {
+    grid-template-columns: 1fr;
+  }
+
+  .social-icons a {
+    width: 20px;
+    height: 20px;
+  }
+}

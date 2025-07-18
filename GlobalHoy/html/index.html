@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GlobalHoy - Noticias al instante</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/anuncios.css" />
+</head>
+<body>
+
+  <!-- Loader -->
+  <div id="loader" class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header id="header" class="sticky-header">
+    <div class="container header-container">
+      <div class="logo">GlobalHoy</div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="/internacional">Internacional</a></li>
+          <li><a href="/nacional">Nacional</a></li>
+          <li><a href="/tecnologia">Tecnología</a></li>
+          <li><a href="/deportes">Deportes</a></li>
+          <li><a href="/cultura">Cultura</a></li>
+          <li><a href="/opinion">Opinión</a></li>
+        </ul>
+      </nav>
+      <div class="search-social">
+        <input type="search" id="searchInput" placeholder="Buscar noticias..." />
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><img src="/img/iconos/facebook.svg" alt="Facebook" /></a>
+          <a href="#" aria-label="Twitter"><img src="/img/iconos/twitter.svg" alt="Twitter" /></a>
+          <a href="#" aria-label="Instagram"><img src="/img/iconos/instagram.svg" alt="Instagram" /></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sección Último minuto / Trending -->
+  <section id="trending" class="trending-ticker">
+    <div class="container">
+      <div class="ticker-content" id="tickerContent">
+        <!-- Noticias último minuto van aquí dinámicamente -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Top Banner para anuncio -->
+  <div class="anuncio anuncio-top" id="banner-top">
+    <p>Tu anuncio aquí</p>
+  </div>
+
+  <!-- Carrusel de noticias destacadas -->
+  <section id="carousel" class="carousel">
+    <div class="container">
+      <div class="carousel-wrapper" id="carouselWrapper">
+        <!-- Slides con noticias destacadas -->
+      </div>
+      <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+      <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Sección de Noticias del Día -->
+  <section class="news-section" id="daily-news">
+    <h2>Noticias del Día</h2>
+    <div class="news-list" id="daily-news-container">
+      <!-- Las noticias del día se cargarán aquí dinámicamente -->
+    </div>
+  </section>
+
+  <!-- Secciones principales -->
+  <main class="container main-content">
+
+    <!-- Internacional -->
+    <section class="news-section" id="internacional">
+      <h2>Internacional</h2>
+      <div class="news-list" id="internacionalNews">
+        <!-- Noticias Internacional aquí -->
+      </div>
+      <div class="anuncio anuncio-bloque" id="anuncio-internacional">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </section>
+
+    <!-- Nacional -->
+    <section class="news-section" id="nacional">
+      <h2>Nacional</h2>
+      <div class="news-list" id="nacionalNews">
+        <!-- Noticias Nacional aquí -->
+      </div>
+      <div class="anuncio anuncio-bloque" id="anuncio-nacional">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </section>
+
+    <!-- Tecnología -->
+    <section class="news-section" id="tecnologia">
+      <h2>Tecnología</h2>
+      <div class="news-list" id="tecnologiaNews">
+        <!-- Noticias Tecnología aquí -->
+      </div>
+      <div class="anuncio anuncio-bloque" id="anuncio-tecnologia">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </section>
+
+    <!-- Deportes -->
+    <section class="news-section" id="deportes">
+      <h2>Deportes</h2>
+      <div class="news-list" id="deportesNews">
+        <!-- Noticias Deportes aquí -->
+      </div>
+      <div class="anuncio anuncio-bloque" id="anuncio-deportes">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </section>
+
+    <!-- Cultura -->
+    <section class="news-section" id="cultura">
+      <h2>Cultura</h2>
+      <div class="news-list" id="culturaNews">
+        <!-- Noticias Cultura aquí -->
+      </div>
+      <div class="anuncio anuncio-bloque" id="anuncio-cultura">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </section>
+
+    <!-- Opinión -->
+    <section class="news-section" id="opinion">
+      <h2>Opinión</h2>
+      <div class="news-list" id="opinionNews">
+        <!-- Noticias Opinión aquí -->
+      </div>
+      <div class="anuncio anuncio-bloque" id="anuncio-opinion">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </section>
+
+    <!-- Noticias recomendadas -->
+    <section class="news-section" id="recomendados">
+      <h2>Recomendados para ti</h2>
+      <div class="news-list" id="recomendadosNews">
+        <!-- Noticias recomendadas aquí -->
+      </div>
+    </section>
+
+    <!-- Gráficos interactivos -->
+    <section class="news-section" id="graficos">
+      <h2>Estadísticas y datos</h2>
+      <canvas id="graficoOpiniones" width="400" height="200"></canvas>
+    </section>
+
+  </main>
+
+  <!-- Botón "Ir arriba" -->
+  <button id="btnIrArriba" title="Ir arriba">&#8679;</button>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-container">
+      <p>© 2025 GlobalHoy. Todos los derechos reservados.</p>
+      <nav class="footer-nav">
+        <a href="/politica-anuncios">Política de privacidad</a> |
+        <a href="/politica-anuncios">Términos de uso</a>
+      </nav>
+      <form id="suscripcionForm" class="suscripcion-form">
+        <label for="emailSuscripcion">Suscríbete al boletín:</label>
+        <input type="email" id="emailSuscripcion" placeholder="Tu correo electrónico" required />
+        <button type="submit">Enviar</button>
+      </form>
+      <div class="anuncio anuncio-footer" id="footer-anuncio">
+        <p>Tu anuncio aquí</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/loader.js"></script>
+  <script src="/js/scrollReveal.js"></script>
+  <script src="/js/apiSimulada.js"></script>
+  <script src="/js/main.js"></script>
+  <script src="/js/buscador.js"></script>
+  <script src="/js/tiempoReal.js"></script>
+  <script src="/js/redes.js"></script>
+  <script src="/js/trendingTicker.js"></script>
+  <script src="/js/irArriba.js"></script>
+  <script src="/js/recomendados.js"></script>
+  <script src="/js/graficos.js"></script>
+  <script src="/js/anuncios.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<i class="fab fa-facebook-f"></i> <!-- Facebook -->
+<i class="fab fa-twitter"></i>    <!-- Twitter -->
+<i class="fab fa-instagram"></i>  <!-- Instagram -->
+
+</body>
+</html>
