@@ -1,7 +1,7 @@
 // apiSimulada.js - Ahora se conecta a la Netlify Function y limita el número de noticias
 
 // Función para obtener noticias de tu Netlify Function
-async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 5) { // Añadido pageSize
+async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10) { // Cambiado a 10
   let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
 
   // Mapear categorías amigables a categorías o consultas de NewsAPI
@@ -72,7 +72,7 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
 
 // Simula la obtención de las noticias más relevantes del día (ahora usa la Netlify Function)
 async function obtenerNoticiasDiarias() {
-  return obtenerNoticiasDesdeAPI('general', 'noticias destacadas', 5); // Limitar a 5 noticias diarias
+  return obtenerNoticiasDesdeAPI('general', 'noticias destacadas', 10); // Limitar a 10 noticias diarias
 }
 
 // La función cargarNoticiasAPI ya no es necesaria aquí, main.js la maneja
