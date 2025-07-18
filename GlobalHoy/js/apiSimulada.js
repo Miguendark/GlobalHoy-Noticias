@@ -1,14 +1,15 @@
-// apiSimulada.js - Ahora se conecta a NewsAPI.org
+// apiSimulada.js - Ahora se conecta a tu propio servidor proxy
 
-const API_KEY = 'b2bfab8186a94cb1880da036fcc78013'; // Tu clave de API
+// La API_KEY ya no va aquí, se maneja en el servidor
 
-// Función para obtener noticias de NewsAPI.org
+// Función para obtener noticias de tu servidor proxy
 async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
-  let url;
+  let url = `/api/noticias?`; // Apunta a tu propio servidor
+
   if (query) {
-    url = `https://newsapi.org/v2/everything?q=${query}&language=es&sortBy=relevancy&apiKey=${API_KEY}`;
+    url += `q=${encodeURIComponent(query)}`;
   } else {
-    url = `https://newsapi.org/v2/top-headlines?category=${categoria}&language=es&apiKey=${API_KEY}`;
+    url += `category=${encodeURIComponent(categoria)}`;
   }
 
   try {
@@ -24,45 +25,18 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
         enlace: article.url,
       }));
     } else {
-      console.error('Error de NewsAPI:', data.message);
+      console.error('Error del proxy de noticias:', data.message || data.error);
       return [];
     }
   } catch (error) {
-    console.error('Error al obtener noticias:', error);
+    console.error('Error al obtener noticias del proxy:', error);
     return [];
   }
 }
 
-// Simula la obtención de las noticias más relevantes del día (ahora usa la API real)
+// Simula la obtención de las noticias más relevantes del día (ahora usa el proxy)
 async function obtenerNoticiasDiarias() {
   return obtenerNoticiasDesdeAPI('general', 'noticias destacadas'); // Puedes ajustar la query
 }
 
-// Esta función ya no es necesaria si main.js llama directamente a obtenerNoticiasDesdeAPI
-// async function cargarNoticiasAPI(categoria, contenedorId) {
-//   const contenedor = document.getElementById(contenedorId);
-//   if (!contenedor) return;
-
-//   contenedor.innerHTML = "<p>Cargando noticias...</p>";
-
-//   try {
-//     const noticias = await obtenerNoticiasDesdeAPI(categoria);
-//     contenedor.innerHTML = "";
-
-//     noticias.forEach((noticia) => {
-//       const articulo = document.createElement("article");
-//       articulo.classList.add("news-item", "reveal");
-//       articulo.innerHTML = `
-//         <img src="${noticia.imagen}" alt="${noticia.titulo}" />
-//         <div class="news-content">
-//           <h3><a href="${noticia.enlace}">${noticia.titulo}</a></h3>
-//           <p>${noticia.resumen}</p>
-//         </div>
-//       `;
-//       contenedor.appendChild(articulo);
-//     });
-//   } catch (error) {
-//     contenedor.innerHTML = "<p>Error cargando noticias.</p>";
-//     console.error("Error al cargar noticias:", error);
-//   }
-// }
+// La función cargarNoticiasAPI ya no es necesaria aquí, main.js la maneja
