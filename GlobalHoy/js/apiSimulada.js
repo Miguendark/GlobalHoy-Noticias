@@ -1,91 +1,68 @@
-// apiSimulada.js
+// apiSimulada.js - Ahora se conecta a NewsAPI.org
 
-// Simula una llamada a una API REST para obtener noticias
-function obtenerNoticiasDesdeAPI(categoria) {
-  // URL simulada - en un proyecto real aquí va tu endpoint
-  const url = `https://api.ejemplo.com/noticias?categoria=${categoria}`;
+const API_KEY = 'b2bfab8186a94cb1880da036fcc78013'; // Tu clave de API
 
-  // Por ahora simulamos con un Promise que devuelve datos
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([
-        {
-          titulo: `Noticia simulada 1 de ${categoria}`,
-          resumen: "Resumen de noticia simulada 1",
-          imagen: "../img/noticias/simulado1.jpg",
-          enlace: "#",
-        },
-        {
-          titulo: `Noticia simulada 2 de ${categoria}`,
-          resumen: "Resumen de noticia simulada 2",
-          imagen: "../img/noticias/simulado2.jpg",
-          enlace: "#",
-        },
-      ]);
-    }, 1000); // Simula retraso de 1 segundo
-  });
-}
-
-// Simula la obtención de las noticias más relevantes del día
-function obtenerNoticiasDiarias() {
-  return new Promise((resolve) => {
-    const noticiasDiarias = [
-      {
-        titulo: "Avance histórico en la fusión nuclear",
-        informacion: "Científicos anuncian un gran avance que podría resolver la crisis energética mundial, generando más energía de la que consume el proceso.",
-        imagen: "https://cdn-images.motor.es/image/m/1320w/fotos-noticias/2022/05/avance-historico-fusion-nuclear-nueva-ley-multiplica-potencial-202287186-1653298358_1.jpg"
-      },
-      {
-        titulo: "Nueva IA Generativa sorprende al mundo",
-        informacion: "Una startup de tecnología ha lanzado una IA capaz de crear videos realistas a partir de texto, abriendo un nuevo debate sobre la creatividad y la automatización.",
-        imagen: "https://www.semana.com/resizer/v2/FZRJBVAD4VDRXIJSBAW2JZBXJY.jpg?auth=6a53e9195de989c998f98825a1e5f1d60cacc2e941b6cf841206962059834f85&smart=true&quality=75&width=1280"
-      },
-      {
-        titulo: "Descubren una nueva especie en el Amazonas",
-        informacion: "Un equipo de biólogos ha identificado una nueva especie de primate en una región remota de la selva amazónica, destacando la importancia de la conservación.",
-        imagen: "https://ichef.bbci.co.uk/news/1024/branded_mundo/4df7/live/d0c4ecc0-bf20-11ef-a0f2-fd81ae5962f4.jpg"
-      },
-      {
-        titulo: "El Banco Central anuncia cambios en la política monetaria",
-        informacion: "Para combatir la inflación, el Banco Central ha decidido aumentar las tasas de interés, una medida que afectará a los mercados globales.",
-        imagen: "https://robertocavada.com/wp-content/uploads/2024/08/Banco-central-dominicano-1140x801-1-770x540.jpg"
-      }
-    ];
-    // Simula un pequeño retraso como si fuera una llamada a una API
-    setTimeout(() => {
-      resolve(noticiasDiarias);
-    }, 500);
-  });
-}
-
-
-// Uso ejemplo: cargar noticias en un contenedor específico
-async function cargarNoticiasAPI(categoria, contenedorId) {
-  const contenedor = document.getElementById(contenedorId);
-  if (!contenedor) return;
-
-  contenedor.innerHTML = "<p>Cargando noticias...</p>";
+// Función para obtener noticias de NewsAPI.org
+async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '') {
+  let url;
+  if (query) {
+    url = `https://newsapi.org/v2/everything?q=${query}&language=es&sortBy=relevancy&apiKey=${API_KEY}`;
+  } else {
+    url = `https://newsapi.org/v2/top-headlines?category=${categoria}&language=es&apiKey=${API_KEY}`;
+  }
 
   try {
-    const noticias = await obtenerNoticiasDesdeAPI(categoria);
-    contenedor.innerHTML = "";
+    const response = await fetch(url);
+    const data = await response.json();
 
-    noticias.forEach((noticia) => {
-      const articulo = document.createElement("article");
-      articulo.classList.add("news-item", "reveal");
-      articulo.innerHTML = `
-        <img src="${noticia.imagen}" alt="${noticia.titulo}" />
-        <div class="news-content">
-          <h3><a href="${noticia.enlace}">${noticia.titulo}</a></h3>
-          <p>${noticia.resumen}</p>
-        </div>
-      `;
-      contenedor.appendChild(articulo);
-    });
+    if (data.status === 'ok') {
+      // Mapear los artículos al formato que tu frontend espera
+      return data.articles.map(article => ({
+        titulo: article.title,
+        resumen: article.description,
+        imagen: article.urlToImage || 'https://via.placeholder.com/150', // Imagen por defecto si no hay
+        enlace: article.url,
+      }));
+    } else {
+      console.error('Error de NewsAPI:', data.message);
+      return [];
+    }
   } catch (error) {
-    contenedor.innerHTML = "<p>Error cargando noticias.</p>";
-    console.error("Error al cargar noticias:", error);
+    console.error('Error al obtener noticias:', error);
+    return [];
   }
 }
 
-// Puedes llamar cargarNoticiasAPI('Internacional', 'internacionalNews') desde main.js o en la página
+// Simula la obtención de las noticias más relevantes del día (ahora usa la API real)
+async function obtenerNoticiasDiarias() {
+  return obtenerNoticiasDesdeAPI('general', 'noticias destacadas'); // Puedes ajustar la query
+}
+
+// Esta función ya no es necesaria si main.js llama directamente a obtenerNoticiasDesdeAPI
+// async function cargarNoticiasAPI(categoria, contenedorId) {
+//   const contenedor = document.getElementById(contenedorId);
+//   if (!contenedor) return;
+
+//   contenedor.innerHTML = "<p>Cargando noticias...</p>";
+
+//   try {
+//     const noticias = await obtenerNoticiasDesdeAPI(categoria);
+//     contenedor.innerHTML = "";
+
+//     noticias.forEach((noticia) => {
+//       const articulo = document.createElement("article");
+//       articulo.classList.add("news-item", "reveal");
+//       articulo.innerHTML = `
+//         <img src="${noticia.imagen}" alt="${noticia.titulo}" />
+//         <div class="news-content">
+//           <h3><a href="${noticia.enlace}">${noticia.titulo}</a></h3>
+//           <p>${noticia.resumen}</p>
+//         </div>
+//       `;
+//       contenedor.appendChild(articulo);
+//     });
+//   } catch (error) {
+//     contenedor.innerHTML = "<p>Error cargando noticias.</p>";
+//     console.error("Error al cargar noticias:", error);
+//   }
+// }
