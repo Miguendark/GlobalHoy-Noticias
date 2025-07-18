@@ -1,2 +1,8 @@
 / /html/index.html 200
-/* /html/:splat.html 200
+/internacional /html/internacional.html 200
+/nacional /html/nacional.html 200
+/tecnologia /html/tecnologia.html 200
+/deportes /html/deportes.html 200
+/cultura /html/cultura.html 200
+/opinion /html/opinion.html 200
+/politica-anuncios /html/politica-anuncios.html 200
