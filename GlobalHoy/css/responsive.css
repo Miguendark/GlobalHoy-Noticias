@@ -1,5 +1,33 @@
 /* Móviles y tablets */
 @media (max-width: 991px) {
+  .container {
+    width: 95%; /* Aumenta el ancho en pantallas medianas */
+  }
+
+  .hamburger-menu {
+    display: block; /* Mostrar en pantallas pequeñas */
+  }
+
+  .main-nav {
+    display: none; /* Ocultar navegación por defecto */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    flex-direction: column;
+    padding: 15px 0;
+  }
+
+  .main-nav.is-active {
+    display: flex; /* Mostrar al hacer clic */
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  
   .header-container {
     flex-wrap: wrap;
     justify-content: center;
@@ -36,10 +64,22 @@
     align-items: center;
     gap: 15px;
   }
+
+  .news-section {
+    margin-bottom: 25px; /* Reduce el margen inferior */
+  }
+
+  .news-section h2 {
+    margin-bottom: 10px; /* Reduce el margen inferior */
+  }
 }
 
 /* Pantallas pequeñas */
 @media (max-width: 480px) {
+  html {
+    font-size: 90%; /* Reduce el tamaño de la fuente base a 14.4px */
+  }
+
   .main-nav ul {
     flex-direction: column;
   }

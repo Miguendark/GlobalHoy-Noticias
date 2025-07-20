@@ -9,7 +9,7 @@ function obtenerNoticiasTiempoReal() {
   const noticiaNueva = {
     titulo: "Actualización en tiempo real: Evento destacado!",
     resumen: "Este es un resumen actualizado que llegó hace poco.",
-    imagen: "../img/noticias/realTime.jpg",
+    imagen: "https://via.placeholder.com/150", // Usar placeholder
     enlace: "#",
   };
 

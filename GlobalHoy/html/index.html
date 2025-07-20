@@ -2,17 +2,23 @@
 <html lang="es">
 <head>
     <link
-  rel="stylesheet"
+  rel="preload"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  as="style"
+  onload="this.onload=null;this.rel='stylesheet'"
 />
+  <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GlobalHoy - Noticias al instante</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/responsive.css" />
-  <link rel="stylesheet" href="/css/animations.css" />
-  <link rel="stylesheet" href="/css/anuncios.css" />
+  <meta name="description" content="Mantente informado con las últimas noticias de GlobalHoy. Cobertura completa de eventos internacionales, nacionales, tecnología, deportes, cultura y opinión." />
+  <title>GlobalHoy - Noticias de Última Hora, Internacionales y Nacionales</title>
+  <link rel="preconnect" href="https://karlobag.eu">
+  <link rel="preconnect" href="https://noro.mx">
+  <link rel="preconnect" href="https://cloudfront-us-east-1.images.arcpublishing.com">
+  <link rel="preconnect" href="https://idmphsmkuxkn.compat.objectstorage.us-ashburn-1.oraclecloud.com">
+  <link rel="preload" href="/css/bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/css/bundle.css"></noscript>
 </head>
 <body>
 
@@ -25,7 +31,12 @@
   <header id="header" class="sticky-header">
     <div class="container header-container">
       <div class="logo">GlobalHoy</div>
-      <nav class="main-nav">
+      <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+      <nav class="main-nav" id="main-nav">
         <ul>
           <li><a href="/internacional">Internacional</a></li>
           <li><a href="/nacional">Nacional</a></li>
@@ -38,9 +49,9 @@
       <div class="search-social">
         <input type="search" id="searchInput" placeholder="Buscar noticias..." />
         <div class="social-icons">
-          <a href="#" aria-label="Facebook"><img src="/img/iconos/facebook.svg" alt="Facebook" /></a>
-          <a href="#" aria-label="Twitter"><img src="/img/iconos/twitter.svg" alt="Twitter" /></a>
-          <a href="#" aria-label="Instagram"><img src="/img/iconos/instagram.svg" alt="Instagram" /></a>
+          <a href="#" aria-label="Facebook"><img src="/img/iconos/facebook.svg" alt="Facebook de GlobalHoy" /></a>
+          <a href="#" aria-label="Twitter"><img src="/img/iconos/twitter.svg" alt="Twitter de GlobalHoy" /></a>
+          <a href="#" aria-label="Instagram"><img src="/img/iconos/instagram.svg" alt="Instagram de GlobalHoy" /></a>
         </div>
       </div>
     </div>
@@ -97,7 +108,19 @@
     <section class="news-section" id="nacional">
       <h2>Nacional</h2>
       <div class="news-list" id="nacionalNews">
-        <!-- Noticias Nacional aquí -->
+        <div class="news-list" id="nacionalNews">
+        <article class="news-item reveal">
+          <picture>
+            <source srcset="https://images.weserv.nl/?url=https%3A%2F%2Fvia.placeholder.com%2F280x160.png%3Ftext%3DNacional&w=400&h=230&fit=cover&q=80&output=webp" media="(max-width: 600px)">
+            <source srcset="https://images.weserv.nl/?url=https%3A%2F%2Fvia.placeholder.com%2F280x160.png%3Ftext%3DNacional&w=800&h=460&fit=cover&q=80&output=webp" media="(min-width: 601px)">
+            <img src="https://images.weserv.nl/?url=https%3A%2F%2Fvia.placeholder.com%2F280x160.png%3Ftext%3DNacional&w=400&h=230&fit=cover&q=80&output=webp" alt="Nueva Ley de Infraestructura Anunciada por el Gobierno" loading="lazy" />
+          </picture>
+          <div class="news-content">
+            <h3><a href="#">Nueva Ley de Infraestructura Anunciada por el Gobierno</a></h3>
+            <p>El plan busca modernizar las carreteras y puentes del país, con una inversión millonaria en los próximos cinco años.</p>
+          </div>
+        </article>
+      </div>
       </div>
       <div class="anuncio anuncio-bloque" id="anuncio-nacional">
         <p>Tu anuncio aquí</p>
@@ -108,7 +131,13 @@
     <section class="news-section" id="tecnologia">
       <h2>Tecnología</h2>
       <div class="news-list" id="tecnologiaNews">
-        <!-- Noticias Tecnología aquí -->
+        <article class="news-item reveal">
+          <img src="https://via.placeholder.com/280x160.png?text=Tecnologia" alt="Lanzamiento del Nuevo Avance en Inteligencia Artificial" />
+          <div class="news-content">
+            <h3><a href="#">Lanzamiento del Nuevo Avance en Inteligencia Artificial</a></h3>
+            <p>Una startup tecnológica presenta un modelo de IA que promete revolucionar el análisis de datos a gran escala.</p>
+          </div>
+        </article>
       </div>
       <div class="anuncio anuncio-bloque" id="anuncio-tecnologia">
         <p>Tu anuncio aquí</p>
@@ -186,21 +215,8 @@
     </div>
   </footer>
 
-  <script src="/js/loader.js"></script>
-  <script src="/js/scrollReveal.js"></script>
-  <script src="/js/apiSimulada.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/buscador.js"></script>
-  <script src="/js/tiempoReal.js"></script>
-  <script src="/js/redes.js"></script>
-  <script src="/js/trendingTicker.js"></script>
-  <script src="/js/irArriba.js"></script>
-  <script src="/js/recomendados.js"></script>
-  <script src="/js/graficos.js"></script>
-  <script src="/js/anuncios.js"></script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="/js/bundle.js" defer></script>
+  
 
 <i class="fab fa-facebook-f"></i> <!-- Facebook -->
 <i class="fab fa-twitter"></i>    <!-- Twitter -->

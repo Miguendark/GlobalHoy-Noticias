@@ -391,3 +391,212 @@ footer {
 .suscripcion-form button:hover {
   background-color: #e69900;
 }
+
+/* Scroll Reveal - clases para usar con JS */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.anuncio {
+  background-color: #e0e0e0;
+  border: 2px dashed #999;
+  color: #333; /* Color de texto mejorado para contraste */
+  text-align: center;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 6px;
+  font-weight: 700;
+  font-style: italic;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.anuncio:hover {
+  background-color: #ccc;
+}
+
+.anuncio-top {
+  height: 90px;
+  line-height: 90px;
+}
+
+.anuncio-sidebar {
+  width: 300px;
+  height: 600px;
+  position: sticky;
+  top: 80px;
+  margin-left: 20px;
+}
+
+.anuncio-bloque {
+  height: 250px;
+}
+
+.anuncio-footer {
+  height: 100px;
+  margin-top: 40px;
+}
+
+.anuncio-movil-fijo {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #004080cc;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-weight: 700;
+  cursor: pointer;
+  display: none;
+  z-index: 1100;
+}
+
+/* Mostrar banner móvil en pantallas pequeñas */
+@media (max-width: 600px) {
+  .anuncio-sidebar {
+    display: none;
+  }
+  .anuncio-movil-fijo {
+    display: block;
+  }
+}
+.btn-cerrar-anuncio {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #666;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+/* Móviles y tablets */
+@media (max-width: 991px) {
+  .container {
+    width: 95%; /* Aumenta el ancho en pantallas medianas */
+  }
+
+  .hamburger-menu {
+    display: block; /* Mostrar en pantallas pequeñas */
+  }
+
+  .main-nav {
+    display: none; /* Ocultar navegación por defecto */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    flex-direction: column;
+    padding: 15px 0;
+  }
+
+  .main-nav.is-active {
+    display: flex; /* Mostrar al hacer clic */
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .header-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .search-social {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .search-social input[type="search"] {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .carousel-btn {
+    font-size: 1.5rem;
+    padding: 5px 10px;
+  }
+
+  .news-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .news-section {
+    margin-bottom: 25px; /* Reduce el margen inferior */
+  }
+
+  .news-section h2 {
+    margin-bottom: 10px; /* Reduce el margen inferior */
+  }
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 480px) {
+  html {
+    font-size: 90%; /* Reduce el tamaño de la fuente base a 14.4px */
+  }
+
+  .main-nav ul {
+    flex-direction: column;
+  }
+
+  .search-social {
+    flex-direction: column;
+  }
+
+  .search-social input[type="search"] {
+    max-width: 100%;
+  }
+
+  .news-list {
+    grid-template-columns: 1fr;
+  }
+
+  .social-icons a {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Estilos para el botón "Cargar más" */
+.load-more-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #004080;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-button:hover {
+  background-color: #0056b3;
+}

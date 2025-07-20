@@ -56,7 +56,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const articulo = document.createElement("article");
       articulo.classList.add("news-item", "reveal");
       articulo.innerHTML = `
-        <img src="${noticia.imagen}" alt="${noticia.titulo}" />
+        <picture>
+          <source srcset="https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp" media="(max-width: 600px)">
+          <source srcset="https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=800&h=460&fit=cover&q=80&output=webp" media="(min-width: 601px)">
+          <img src="https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp" alt="${noticia.titulo}" loading="lazy" />
+        </picture>
         <div class="news-content">
           <h3><a href="${noticia.enlace}">${noticia.titulo}</a></h3>
           <p>${noticia.resumen}</p>
