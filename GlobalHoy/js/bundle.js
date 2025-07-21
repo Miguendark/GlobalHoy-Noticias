@@ -430,7 +430,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Optimización de imagen con images.weserv.nl
       const imageUrl = noticia.imagen.startsWith('http') 
         ? `https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp`
-        : noticia.imagen;
+        : `https://placehold.co/400x230?text=${encodeURIComponent(noticia.titulo)}`;
 
       const image400 = imageUrl.replace('w=400', 'w=400');
       const image800 = imageUrl.replace('w=400', 'w=800');
