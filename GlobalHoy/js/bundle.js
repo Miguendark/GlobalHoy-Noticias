@@ -426,8 +426,21 @@ document.addEventListener("DOMContentLoaded", () => {
     noticias.forEach((noticia) => {
       const articulo = document.createElement("article");
       articulo.classList.add("news-item", "reveal");
+
+      // Optimización de imagen con images.weserv.nl
+      const imageUrl = noticia.imagen.startsWith('http') 
+        ? `https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp`
+        : noticia.imagen;
+
+      const image400 = imageUrl.replace('w=400', 'w=400');
+      const image800 = imageUrl.replace('w=400', 'w=800');
+
       articulo.innerHTML = `
-        <img src="${noticia.imagen}" alt="${noticia.titulo}" />
+        <picture>
+          <source srcset="${image400}" media="(max-width: 600px)">
+          <source srcset="${image800}" media="(min-width: 601px)">
+          <img src="${image400}" alt="${noticia.titulo}" loading="lazy" />
+        </picture>
         <div class="news-content">
           <h3><a href="${noticia.enlace}">${noticia.titulo}</a></h3>
           <p>${noticia.resumen}</p>
