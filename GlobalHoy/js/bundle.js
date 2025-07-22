@@ -252,10 +252,30 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="${image400}" alt="${noticia.titulo}" loading="lazy" />
       </picture>
       <div class="news-content">
-        <h3><a href="${noticia.enlace || '#'}" target="_blank" rel="noopener noreferrer">${noticia.titulo}</a></h3>
+        <h3><a class="news-link" href="${noticia.enlace || '#'}" target="_blank" rel="noopener noreferrer">${noticia.titulo}</a></h3>
         <p>${noticia.informacion || noticia.resumen}</p>
       </div>
     `;
+
+    // --- Lógica para el anuncio Popunder y retardo de navegación ---
+    const newsLink = articulo.querySelector('.news-link');
+    if (newsLink) {
+      newsLink.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevenir la navegación inmediata del enlace
+
+        const targetUrl = newsLink.href;
+
+        // El script del popunder ya está en el HTML y debería activarse
+        // al hacer clic en cualquier parte del documento.
+        // Aquí solo retrasamos la apertura de la URL de la noticia.
+
+        setTimeout(() => {
+          window.open(targetUrl, '_blank'); // Abrir la URL de la noticia en una nueva pestaña después del retardo
+        }, 3000); // Retraso de 3 segundos (3000 milisegundos)
+      });
+    }
+    // --- Fin de la lógica para el anuncio Popunder ---
+
     return articulo;
   }
 
