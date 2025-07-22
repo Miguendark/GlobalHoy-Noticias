@@ -16,8 +16,8 @@
   <meta name="geo.region" content="US" />
   <meta name="geo.placename" content="United States" />
   <title>Últimas Noticias de Tecnología y Ciencia | GlobalHoy</title>
-  <link rel="stylesheet" href="/css/style.css" />
-  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="preload" href="/css/bundle.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="/css/bundle.css"></noscript>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -41,8 +41,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Noticias tecnología -->
     </section>
   </main>
-  <script src="/js/apiSimulada.js"></script>
-  <script src="/js/main.js"></script>
-  <script src="/js/scrollReveal.js"></script>
+  <script src="/js/bundle.js" defer></script>
 </body>
 </html>
