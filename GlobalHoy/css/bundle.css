@@ -96,7 +96,7 @@ header {
 }
 
 .main-nav ul li a:hover {
-  color: #ffb347;
+  /* color: #ffb347; */ /* Eliminado para que no cambie de color al pasar el ratón */
 }
 
 .search-social {
