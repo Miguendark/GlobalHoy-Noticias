@@ -650,3 +650,16 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // anuncios.js - Eliminado, ahora se usan anuncios externos
+
+// Carga diferida de Google Tag Manager
+document.addEventListener("DOMContentLoaded", () => {
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=G-K4120GXZCS';
+  document.head.appendChild(script);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K4120GXZCS');
+});
