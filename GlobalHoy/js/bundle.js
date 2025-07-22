@@ -219,6 +219,17 @@ async function obtenerNoticiasDiarias() {
 
 // main.js
 
+const newsPerPage = 10; // Número de noticias a cargar por vez
+const currentPages = { // Objeto para llevar el control de la página actual por categoría
+  general: 0,
+  internacional: 0,
+  nacional: 0,
+  tecnologia: 0,
+  deportes: 0,
+  cultura: 0,
+  opinion: 0,
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   // Función para crear un artículo de noticia y evitar repetición de código
   function crearArticuloNoticia(noticia) {
@@ -248,37 +259,71 @@ document.addEventListener("DOMContentLoaded", () => {
     return articulo;
   }
 
-  // Cargar noticias diarias en la sección principal
-  async function cargarNoticiasDiarias() {
-    const contenedor = document.getElementById("daily-news-container");
+  // Función genérica para cargar noticias con paginación
+  async function cargarNoticiasPaginadas(categoria, contenedorId, isInitialLoad = true) {
+    const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
-    contenedor.innerHTML = "<p>Cargando noticias del día...</p>";
+    const loadMoreButton = document.getElementById(`load-more-${categoria}-news`);
 
-    try {
-      const noticias = await obtenerNoticiasDiarias(); // Función de apiSimulada.js
-      contenedor.innerHTML = ""; // Limpiar el contenedor
-
-      noticias.forEach(noticia => {
-        const articulo = crearArticuloNoticia(noticia);
-        contenedor.appendChild(articulo);
-      });
-    } catch (error) {
-      contenedor.innerHTML = "<p>Error al cargar las noticias del día.</p>";
-      console.error("Error:", error);
+    if (isInitialLoad) {
+      contenedor.innerHTML = "<p>Cargando noticias...</p>";
+      currentPages[categoria] = 0; // Resetear página al cargar inicialmente
     }
+
+    const startIndex = currentPages[categoria] * newsPerPage;
+    const endIndex = startIndex + newsPerPage;
+
+    const noticias = await obtenerNoticiasDesdeAPI(categoria, '', endIndex); // Obtener hasta el final de la página actual
+
+    if (isInitialLoad) {
+      contenedor.innerHTML = ""; // Limpiar solo en la carga inicial
+    }
+
+    const noticiasParaMostrar = noticias.slice(startIndex, endIndex);
+
+    if (noticiasParaMostrar.length === 0 && isInitialLoad) {
+      contenedor.innerHTML = "<p>No hay noticias disponibles en esta categoría.</p>";
+      if (loadMoreButton) loadMoreButton.style.display = "none";
+      return;
+    } else if (noticiasParaMostrar.length === 0) {
+      // No hay más noticias para cargar
+      if (loadMoreButton) loadMoreButton.style.display = "none";
+      return;
+    }
+
+    noticiasParaMostrar.forEach(noticia => {
+      const articulo = crearArticuloNoticia(noticia);
+      contenedor.appendChild(articulo);
+    });
+
+    currentPages[categoria]++;
+
+    // Mostrar/ocultar botón "Cargar Más" si hay más noticias
+    if (loadMoreButton) {
+      if (noticias.length > currentPages[categoria] * newsPerPage) {
+        loadMoreButton.style.display = "block";
+      } else {
+        loadMoreButton.style.display = "none";
+      }
+    }
+  }
+
+  // Cargar noticias diarias en la sección principal
+  async function cargarNoticiasDiarias() {
+    await cargarNoticiasPaginadas('general', 'daily-news-container', true);
   }
 
   // Cargar noticias por categoría en las páginas correspondientes
   const contenedores = document.querySelectorAll(".news-list");
   if (contenedores.length > 0) {
     const mapaIdCategoria = {
-      internacionalNews: "Internacional",
-      nacionalNews: "Nacional",
-      tecnologiaNews: "Tecnología",
-      deportesNews: "Deportes",
-      culturaNews: "Cultura",
-      opinionNews: "Opinión",
+      internacionalNews: "internacional",
+      nacionalNews: "nacional",
+      tecnologiaNews: "tecnologia",
+      deportesNews: "deportes",
+      culturaNews: "cultura",
+      opinionNews: "opinion",
     };
 
     contenedores.forEach(async (contenedor) => {
@@ -288,18 +333,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const categoria = mapaIdCategoria[id];
       if (!categoria) return;
 
-      try {
-        const noticias = await obtenerNoticiasDesdeAPI(categoria);
-        contenedor.innerHTML = ""; // Limpiar
+      await cargarNoticiasPaginadas(categoria, id, true);
+    });
+  }
 
-        noticias.forEach(noticia => {
-          const articulo = crearArticuloNoticia(noticia);
-          contenedor.appendChild(articulo);
-        });
-      } catch (error) {
-        contenedor.innerHTML = `<p>Error cargando noticias de ${categoria}.</p>`;
-        console.error(`Error en ${categoria}:`, error);
-      }
+  // Event listener para el botón "Cargar Más Noticias" de la sección diaria
+  const loadMoreDailyBtn = document.getElementById('load-more-daily-news');
+  if (loadMoreDailyBtn) {
+    loadMoreDailyBtn.addEventListener('click', () => {
+      cargarNoticiasPaginadas('general', 'daily-news-container', false);
     });
   }
 
