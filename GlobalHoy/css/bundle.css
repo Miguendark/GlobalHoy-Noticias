@@ -470,9 +470,9 @@ footer {
   .anuncio-sidebar {
     display: none;
   }
-  .anuncio-movil-fijo {
+  /* .anuncio-movil-fijo {
     display: block;
-  }
+  } */ /* Eliminado */
 }
 .btn-cerrar-anuncio {
   background: transparent;
