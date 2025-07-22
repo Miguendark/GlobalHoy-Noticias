@@ -653,6 +653,8 @@ espacios.forEach((id) => {
     <p>Espacio publicitario - GlobalHoy</p>
     <button class="btn-cerrar-anuncio" aria-label="Cerrar anuncio">×</button>
   `;
+  // Aseguramos que el anuncio sea visible al cargar
+  contenedor.style.display = "block";
 
   const btnCerrar = contenedor.querySelector(".btn-cerrar-anuncio");
   btnCerrar.addEventListener("click", () => {
