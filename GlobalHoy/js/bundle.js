@@ -91,7 +91,7 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
       return data.articles.map(article => ({
         titulo: article.title,
         resumen: article.description,
-        imagen: article.urlToImage || 'https://via.placeholder.com/150', // Imagen por defecto si no hay
+        imagen: article.urlToImage || 'https://placehold.co/150', // Imagen por defecto si no hay
         enlace: article.url,
       }));
     } else {
@@ -244,7 +244,7 @@ function obtenerNoticiasTiempoReal() {
   const noticiaNueva = {
     titulo: "Actualización en tiempo real: Evento destacado!",
     resumen: "Este es un resumen actualizado que llegó hace poco.",
-    imagen: "https://via.placeholder.com/150", // Usar placeholder
+    imagen: "https://placehold.co/150", // Usar placeholder
     enlace: "#",
   };
 
