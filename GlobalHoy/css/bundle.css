@@ -91,6 +91,10 @@ header {
   transition: color 0.3s ease;
 }
 
+.main-nav ul li a:visited {
+  color: #fff; /* Asegura que los enlaces visitados también sean blancos */
+}
+
 .main-nav ul li a:hover {
   color: #ffb347;
 }
