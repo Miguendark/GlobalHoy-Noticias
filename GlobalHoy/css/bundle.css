@@ -517,6 +517,17 @@ footer {
     align-items: center;
     gap: 5px; /* Reduce el espacio entre elementos del nav en móvil */
   }
+
+  .main-nav ul li a {
+    font-weight: 700 !important; /* Más negrita para mayor visibilidad */
+    padding: 8px 15px; /* Añade padding para hacerlos más grandes y fáciles de tocar */
+    display: block; /* Para que el padding funcione correctamente */
+  }
+
+  .main-nav.is-active ul li {
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil para resaltar el elemento activo */
+    border-radius: 4px;
+  }
   
   .header-container {
     flex-wrap: wrap;
