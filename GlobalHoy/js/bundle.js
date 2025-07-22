@@ -32,79 +32,185 @@ window.addEventListener("scroll", revealOnScroll);
 // Ejecutar al cargar para los elementos visibles inicialmente
 window.addEventListener("load", revealOnScroll);
 
-// apiSimulada.js - Ahora se conecta a la Netlify Function y limita el número de noticias
+// apiSimulada.js - Ahora usa datos locales para las noticias
 
-// Función para obtener noticias de tu Netlify Function
-async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10) { // Cambiado a 10
-  let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
+// Estructura de datos local para las noticias
+const noticiasLocales = {
+  general: [
+    {
+      titulo: "Noticia General 1: Gran Avance Científico",
+      resumen: "Científicos anuncian un descubrimiento que podría cambiar el futuro de la medicina.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 2: Economía Global en Recuperación",
+      resumen: "Los mercados financieros muestran signos de estabilidad y crecimiento.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+2",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 3: Evento Cultural del Año",
+      resumen: "Festival de música y arte atrae a miles de visitantes.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+3",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 4: Innovación en Energía Renovable",
+      resumen: "Nueva tecnología promete energía limpia y accesible para todos.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+4",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 5: Tendencias de Viaje para 2025",
+      resumen: "Descubre los destinos más populares y las nuevas formas de explorar el mundo.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+5",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 6: Avances en Inteligencia Artificial",
+      resumen: "La IA sigue sorprendiendo con sus capacidades y aplicaciones.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+6",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 7: Salud y Bienestar",
+      resumen: "Consejos para una vida más sana y equilibrada.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+7",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 8: Educación del Futuro",
+      resumen: "Nuevos modelos educativos se adaptan a las necesidades del siglo XXI.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+8",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 9: Desafíos Ambientales",
+      resumen: "La lucha contra el cambio climático y la protección de la biodiversidad.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+9",
+      enlace: "#",
+    },
+    {
+      titulo: "Noticia General 10: Cultura Pop y Entretenimiento",
+      resumen: "Lo último en cine, música y videojuegos.",
+      imagen: "https://placehold.co/400x230?text=Noticia+General+10",
+      enlace: "#",
+    },
+  ],
+  tecnologia: [
+    {
+      titulo: "Tecnología 1: Nuevo Smartphone Plegable",
+      resumen: "La última innovación en telefonía móvil llega al mercado.",
+      imagen: "https://placehold.co/400x230?text=Tecnologia+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Tecnología 2: Avances en Realidad Virtual",
+      resumen: "La RV se integra cada vez más en la vida cotidiana.",
+      imagen: "https://placehold.co/400x230?text=Tecnologia+2",
+      enlace: "#",
+    },
+  ],
+  deportes: [
+    {
+      titulo: "Deportes 1: Final de la Liga de Campeones",
+      resumen: "Un partido épico que pasará a la historia del fútbol.",
+      imagen: "https://placehold.co/400x230?text=Deportes+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Deportes 2: Récord Mundial en Atletismo",
+      resumen: "Atleta supera todas las expectativas en la pista.",
+      imagen: "https://placehold.co/400x230?text=Deportes+2",
+      enlace: "#",
+    },
+  ],
+  internacional: [
+    {
+      titulo: "Internacional 1: Cumbre de Líderes Mundiales",
+      resumen: "Decisiones clave para el futuro de las relaciones internacionales.",
+      imagen: "https://placehold.co/400x230?text=Internacional+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Internacional 2: Crisis Humanitaria en África",
+      resumen: "Organizaciones de ayuda intensifican sus esfuerzos.",
+      imagen: "https://placehold.co/400x230?text=Internacional+2",
+      enlace: "#",
+    },
+  ],
+  nacional: [
+    {
+      titulo: "Nacional 1: Reformas Educativas en Debate",
+      resumen: "El gobierno propone cambios significativos en el sistema educativo.",
+      imagen: "https://placehold.co/400x230?text=Nacional+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Nacional 2: Elecciones Locales",
+      resumen: "Resultados preliminares de las votaciones en varias ciudades.",
+      imagen: "https://placehold.co/400x230?text=Nacional+2",
+      enlace: "#",
+    },
+  ],
+  cultura: [
+    {
+      titulo: "Cultura 1: Exposición de Arte Moderno",
+      resumen: "Una colección impresionante que desafía las convenciones.",
+      imagen: "https://placehold.co/400x230?text=Cultura+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Cultura 2: Estreno de Obra de Teatro",
+      resumen: "Críticas entusiastas para la nueva producción teatral.",
+      imagen: "https://placehold.co/400x230?text=Cultura+2",
+      enlace: "#",
+    },
+  ],
+  opinion: [
+    {
+      titulo: "Opinión 1: El Futuro del Trabajo",
+      resumen: "Análisis sobre cómo la tecnología está redefiniendo el mercado laboral.",
+      imagen: "https://placehold.co/400x230?text=Opinion+1",
+      enlace: "#",
+    },
+    {
+      titulo: "Opinión 2: Desafíos de la Democracia",
+      resumen: "Reflexiones sobre la participación ciudadana y el rol de los medios.",
+      imagen: "https://placehold.co/400x230?text=Opinion+2",
+      enlace: "#",
+    },
+  ],
+};
 
-  // Mapear categorías amigables a categorías o consultas de NewsAPI
-  let newsApiCategory = '';
-  let newsApiQuery = '';
+// Función para obtener noticias de los datos locales
+async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10) {
+  let noticiasFiltradas = [];
+  const categoriaNormalizada = categoria.toLowerCase();
 
-  switch (categoria.toLowerCase()) {
-    case 'tecnología':
-      newsApiCategory = 'technology';
-      break;
-    case 'deportes':
-      newsApiCategory = 'sports';
-      break;
-    case 'internacional':
-      newsApiQuery = 'noticias internacionales'; // Usar consulta para búsqueda más amplia
-      break;
-    case 'nacional':
-      newsApiQuery = 'noticias nacionales'; // Usar consulta para búsqueda más amplia
-      break;
-    case 'cultura':
-      newsApiQuery = 'cultura';
-      break;
-    case 'opinión':
-      newsApiQuery = 'opinión';
-      break;
-    case 'general': // Para noticias diarias o por defecto
-      newsApiCategory = 'general';
-      break;
-    default:
-      newsApiQuery = categoria; // Si no hay mapeo específico, usar la categoría como consulta
+  // Si la categoría es 'general' o 'noticias destacadas', usamos la categoría 'general' de noticiasLocales
+  if (categoriaNormalizada === 'general' || query.includes('noticias destacadas')) {
+    noticiasFiltradas = noticiasLocales.general || [];
+  } else {
+    // Intentar obtener noticias por la categoría específica
+    noticiasFiltradas = noticiasLocales[categoriaNormalizada] || [];
   }
 
-  // Si se pasó una consulta específica, tiene prioridad
+  // Filtrar por query si existe
   if (query) {
-    newsApiQuery = query;
+    const queryLower = query.toLowerCase();
+    noticiasFiltradas = noticiasFiltradas.filter(noticia =>
+      noticia.titulo.toLowerCase().includes(queryLower) ||
+      noticia.resumen.toLowerCase().includes(queryLower)
+    );
   }
 
-  if (newsApiQuery) {
-    url += `q=${encodeURIComponent(newsApiQuery)}`;
-  } else if (newsApiCategory) {
-    url += `category=${encodeURIComponent(newsApiCategory)}`;
-  }
-
-  // Añadir el parámetro pageSize
-  url += `&pageSize=${pageSize}`;
-
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.status === 'ok') {
-      // Mapear los artículos al formato que tu frontend espera
-      return data.articles.map(article => ({
-        titulo: article.title,
-        resumen: article.description,
-        imagen: article.urlToImage || 'https://placehold.co/150', // Imagen por defecto si no hay
-        enlace: article.url,
-      }));
-    } else {
-      console.error('Error de la Netlify Function:', data.message || data.error);
-      return [];
-    }
-  } catch (error) {
-    console.error('Error al obtener noticias de la Netlify Function:', error);
-    return [];
-  }
+  // Devolver un subconjunto de noticias basado en pageSize
+  return noticiasFiltradas.slice(0, pageSize);
 }
 
-// Simula la obtención de las noticias más relevantes del día (ahora usa la Netlify Function)
+// Simula la obtención de las noticias más relevantes del día (ahora usa datos locales)
 async function obtenerNoticiasDiarias() {
   return obtenerNoticiasDesdeAPI('general', 'noticias destacadas', 10); // Limitar a 10 noticias diarias
 }
@@ -233,47 +339,7 @@ document.getElementById("searchInput").addEventListener("input", function () {
   });
 });
 
-// tiempoReal.js
-
-// Simula la actualización de noticias cada 30 segundos
-const actualizarInterval = 30000; // 30 segundos
-
-function obtenerNoticiasTiempoReal() {
-  // Aquí iría llamada a API real o WebSocket
-  // Por ahora simulamos una noticia nueva
-  const noticiaNueva = {
-    titulo: "Actualización en tiempo real: Evento destacado!",
-    resumen: "Este es un resumen actualizado que llegó hace poco.",
-    imagen: "https://placehold.co/150", // Usar placeholder
-    enlace: "#",
-  };
-
-  // Agregar la noticia al inicio de la sección Internacional como ejemplo
-  const contenedor = document.getElementById("internacionalNews");
-  if (!contenedor) return;
-
-  const articulo = document.createElement("article");
-  articulo.classList.add("news-item", "reveal");
-  articulo.innerHTML = `
-    <img src="${noticiaNueva.imagen}" alt="${noticiaNueva.titulo}" />
-    <div class="news-content">
-      <h3><a href="${noticiaNueva.enlace}">${noticiaNueva.titulo}</a></h3>
-      <p>${noticiaNueva.resumen}</p>
-    </div>
-  `;
-
-  contenedor.insertBefore(articulo, contenedor.firstChild);
-
-  // Opcional: Limitar cantidad de noticias mostradas
-  if (contenedor.childElementCount > 10) {
-    contenedor.removeChild(contenedor.lastChild);
-  }
-}
-
-setInterval(obtenerNoticiasTiempoReal, actualizarInterval);
-
-// Ejecutar la primera vez al cargar
-window.addEventListener("load", obtenerNoticiasTiempoReal);
+// tiempoReal.js - Eliminado para gestión manual de noticias
 
 // redes.js
 
