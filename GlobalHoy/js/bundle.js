@@ -69,6 +69,8 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
     const response = await fetch(`${url}?${params}`);
     const data = await response.json();
 
+    console.log('NewsAPI Response:', data); // Añadido para depuración
+
     if (data.status === 'ok') {
       return data.articles.map(article => ({
         titulo: article.title,
