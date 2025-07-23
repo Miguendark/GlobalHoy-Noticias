@@ -427,9 +427,10 @@ footer {
 }
 
 .anuncio iframe {
-  max-width: 100%; /* Asegura que el iframe no exceda el ancho del contenedor */
-  height: auto; /* Ajusta la altura automáticamente */
-  display: block; /* Elimina espacios extra debajo del iframe */
+  max-width: 100% !important; /* Asegura que el iframe no exceda el ancho del contenedor */
+  height: auto !important; /* Ajusta la altura automáticamente */
+  display: block !important; /* Elimina espacios extra debajo del iframe */
+  line-height: normal !important; /* Asegura que no haya line-height que afecte */
 }
 
 .anuncio:hover {
