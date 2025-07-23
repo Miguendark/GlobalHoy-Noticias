@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         setTimeout(() => {
           window.open(targetUrl, '_blank'); // Abrir la URL de la noticia en una nueva pestaña después del retardo
-        }, 3000); // Retraso de 3 segundos (3000 milisegundos)
+        }, 5000); // Retraso de 5 segundos (5000 milisegundos)
       });
     }
     // --- Fin de la lógica para el anuncio Popunder ---

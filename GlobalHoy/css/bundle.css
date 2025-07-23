@@ -423,6 +423,13 @@ footer {
   display: flex; /* Usar flexbox para centrar el contenido */
   justify-content: center; /* Centrar horizontalmente */
   align-items: center; /* Centrar verticalmente */
+  overflow: hidden; /* Asegura que el contenido no se desborde */
+}
+
+.anuncio iframe {
+  max-width: 100%; /* Asegura que el iframe no exceda el ancho del contenedor */
+  height: auto; /* Ajusta la altura automáticamente */
+  display: block; /* Elimina espacios extra debajo del iframe */
 }
 
 .anuncio:hover {
