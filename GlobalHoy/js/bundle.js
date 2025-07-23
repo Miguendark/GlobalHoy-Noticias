@@ -32,18 +32,13 @@ window.addEventListener("scroll", revealOnScroll);
 // Ejecutar al cargar para los elementos visibles inicialmente
 window.addEventListener("load", revealOnScroll);
 
-// apiSimulada.js - Ahora usa NewsAPI para obtener noticias
+// apiSimulada.js - Ahora usa la Netlify Function como proxy para NewsAPI
 
-const NEWSAPI_KEY = 'b2bfab8186a94cb1880da036fcc78013'; // Tu clave API de NewsAPI
-const NEWSAPI_BASE_URL_HEADLINES = 'https://newsapi.org/v2/top-headlines';
-const NEWSAPI_BASE_URL_EVERYTHING = 'https://newsapi.org/v2/everything';
-
-// Función para obtener noticias de NewsAPI
+// Función para obtener noticias de la Netlify Function
 async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10) {
-  let url;
-  let params = `apiKey=${NEWSAPI_KEY}&language=en`; // Idioma inglés
+  let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
 
-  // Mapear categorías amigables a categorías de NewsAPI
+  // Mapear categorías amigables a categorías o consultas de NewsAPI
   const newsApiCategoryMap = {
     'general': 'general',
     'tecnologia': 'technology',
@@ -54,22 +49,22 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
     'opinion': 'general', // No direct 'opinion' category
   };
 
+  let params = '';
+
   if (query) {
-    url = NEWSAPI_BASE_URL_EVERYTHING;
-    params += `&q=${encodeURIComponent(query)}`;
+    params += `q=${encodeURIComponent(query)}`;
   } else {
-    url = NEWSAPI_BASE_URL_HEADLINES;
     const mappedCategory = newsApiCategoryMap[categoria.toLowerCase()] || 'general';
-    params += `&category=${mappedCategory}`;
+    params += `category=${mappedCategory}`;
   }
 
   params += `&pageSize=${pageSize}`;
 
   try {
-    const response = await fetch(`${url}?${params}`);
+    const response = await fetch(`${url}${params}`);
     const data = await response.json();
 
-    console.log('NewsAPI Response:', data); // Añadido para depuración
+    console.log('NewsAPI Response (via Netlify Function):', data); // Añadido para depuración
 
     if (data.status === 'ok') {
       return data.articles.map(article => ({
@@ -80,16 +75,16 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
         contenido_completo: article.content || article.description // Usar content o description para la modal
       }));
     } else {
-      console.error('Error de NewsAPI:', data.message || data.code);
+      console.error('Error de NewsAPI (via Netlify Function):', data.message || data.code);
       return [];
     }
   } catch (error) {
-    console.error('Error al obtener noticias de NewsAPI:', error);
+    console.error('Error al obtener noticias de la Netlify Function:', error);
     return [];
   }
 }
 
-// Simula la obtención de las noticias más relevantes del día (ahora usa NewsAPI)
+// Simula la obtención de las noticias más relevantes del día (ahora usa la Netlify Function)
 async function obtenerNoticiasDiarias() {
   return obtenerNoticiasDesdeAPI('general', '', 10); // Obtener 10 noticias generales
 }
