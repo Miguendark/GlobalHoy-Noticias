@@ -37,25 +37,32 @@ window.addEventListener("load", revealOnScroll);
 // Función para obtener noticias de la Netlify Function
 async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10) {
   let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
-
-  // Mapear categorías amigables a categorías o consultas de NewsAPI
-  const newsApiCategoryMap = {
-    'general': 'general',
-    'tecnologia': 'technology',
-    'deportes': 'sports',
-    'internacional': 'general', // NewsAPI doesn't have 'international' category, use general
-    'nacional': 'general', // NewsAPI doesn't have 'national' category, use general
-    'cultura': 'entertainment', // Closest category
-    'opinion': 'general', // No direct 'opinion' category
-  };
-
   let params = '';
+  const categoryLower = categoria.toLowerCase();
 
+  // Priorizar la consulta si se proporciona
   if (query) {
     params += `q=${encodeURIComponent(query)}`;
   } else {
-    const mappedCategory = newsApiCategoryMap[categoria.toLowerCase()] || 'general';
-    params += `category=${mappedCategory}`;
+    // Usar la categoría como consulta para el endpoint 'everything'
+    // Esto es más flexible para el plan de desarrollador
+    if (categoryLower === 'general') {
+      params += `q=news`; // Consulta muy general para la página principal
+    } else if (categoryLower === 'internacional') {
+      params += `q=international news`;
+    } else if (categoryLower === 'nacional') {
+      params += `q=national news`;
+    } else if (categoryLower === 'tecnologia') {
+      params += `q=technology`;
+    } else if (categoryLower === 'deportes') {
+      params += `q=sports`;
+    } else if (categoryLower === 'cultura') {
+      params += `q=culture`;
+    } else if (categoryLower === 'opinion') {
+      params += `q=opinion`;
+    } else {
+      params += `q=news`; // Fallback si la categoría no está mapeada
+    }
   }
 
   params += `&pageSize=${pageSize}`;
@@ -64,9 +71,7 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
     const response = await fetch(`${url}${params}`);
     const data = await response.json();
 
-    console.log('NewsAPI Response (via Netlify Function):', data); // Añadido para depuración
-
-    if (data.status === 'ok') {
+    if (data.status === 'ok' && data.articles.length > 0) {
       return data.articles.map(article => ({
         titulo: article.title,
         resumen: article.description,
@@ -75,7 +80,8 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
         contenido_completo: article.content || article.description // Usar content o description para la modal
       }));
     } else {
-      console.error('Error de NewsAPI (via Netlify Function):', data.message || data.code);
+      console.error('Error de NewsAPI (via Netlify Function) o no hay artículos:', data.message || data.code || 'No articles found');
+      // Fallback a un mensaje si no hay noticias
       return [];
     }
   } catch (error) {
