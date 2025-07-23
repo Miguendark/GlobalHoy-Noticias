@@ -104,59 +104,55 @@ const currentPages = { // Objeto para llevar el control de la página actual por
   opinion: 0,
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Función para crear un artículo de noticia y evitar repetición de código
-  function crearArticuloNoticia(noticia) {
-    const articulo = document.createElement("article");
-    articulo.classList.add("news-item", "reveal");
+// Función para crear un artículo de noticia y evitar repetición de código
+function crearArticuloNoticia(noticia) {
+  const articulo = document.createElement("article");
+  articulo.classList.add("news-item", "reveal");
 
-    // Optimización de imagen con images.weserv.nl
-    const imageUrl = noticia.imagen.startsWith('http') 
-      ? `https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp`
-      : noticia.imagen;
+  // Optimización de imagen con images.weserv.nl
+  const imageUrl = noticia.imagen.startsWith('http') 
+    ? `https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp`
+    : noticia.imagen;
 
-    const image400 = imageUrl.replace('w=400', 'w=400');
-    const image800 = imageUrl.replace('w=400', 'w=800');
+  const image400 = imageUrl.replace('w=400', 'w=400');
+  const image800 = imageUrl.replace('w=400', 'w=800');
 
-    // Contenido del artículo con imagen responsiva
-    articulo.innerHTML = `
-      <picture>
-        <source srcset="${image400}" media="(max-width: 600px)">
-        <source srcset="${image800}" media="(min-width: 601px)">
-        <img src="${image400}" alt="${noticia.titulo}" loading="lazy" />
-      </picture>
-      <div class="news-content">
-        <h3><a class="news-link" href="${noticia.enlace || '#'}" target="_blank" rel="noopener noreferrer">${noticia.titulo}</a></h3>
-        <p>${noticia.informacion || noticia.resumen}</p>
-      </div>
-    `;
+  // Contenido del artículo con imagen responsiva
+  articulo.innerHTML = `
+    <picture>
+      <source srcset="${image400}" media="(max-width: 600px)">
+      <source srcset="${image800}" media="(min-width: 601px)">
+      <img src="${image400}" alt="${noticia.titulo}" loading="lazy" />
+    </picture>
+    <div class="news-content">
+      <h3><a class="news-link" href="${noticia.enlace || '#'}" target="_blank" rel="noopener noreferrer">${noticia.titulo}</a></h3>
+      <p>${noticia.informacion || noticia.resumen}</p>
+    </div>
+  `;
 
-    // --- Lógica para el anuncio Popunder y retardo de navegación ---
-    const newsLink = articulo.querySelector('.news-link');
-    if (newsLink) {
-      newsLink.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevenir la navegación inmediata del enlace
+  // --- Lógica para el anuncio Popunder y retardo de navegación ---
+  const newsLink = articulo.querySelector('.news-link');
+  if (newsLink) {
+    newsLink.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevenir la navegación inmediata del enlace
 
-        const targetUrl = noticia.enlace; // La URL original de la noticia
+      const targetUrl = noticia.enlace; // La URL original de la noticia
 
-        // Mostrar el Popunder (si el script externo lo maneja al clic global)
-        // y luego abrir la modal después de un retardo
-        setTimeout(() => {
-          // Llenar y mostrar la modal
-          document.getElementById('modal-title').textContent = noticia.titulo;
-          document.getElementById('modal-image').src = noticia.imagen;
-          document.getElementById('modal-image').alt = noticia.titulo;
-          document.getElementById('modal-description').textContent = noticia.resumen;
-          document.getElementById('modal-full-content').textContent = noticia.contenido_completo || noticia.resumen; // Mostrar contenido completo o resumen
-          document.getElementById('modal-link').href = targetUrl;
-          document.getElementById('news-modal').style.display = 'block';
-        }, 5000); // Retraso de 5 segundos para el Popunder antes de mostrar la modal
-      });
-    }
-    // --- Fin de la lógica para el anuncio Popunder ---
+      // El script del popunder ya está en el HTML y debería activarse
+      // al hacer clic en cualquier parte del documento.
+      // Aquí solo retrasamos la apertura de la URL de la noticia.
 
-    return articulo;
+      setTimeout(() => {
+        window.open(targetUrl, '_blank'); // Abrir la URL de la noticia en una nueva pestaña después del retardo
+      }, 5000); // Retraso de 5 segundos (5000 milisegundos)
+    });
   }
+  // --- Fin de la lógica para el anuncio Popunder ---
+
+  return articulo;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
 
   // Lógica para cerrar la modal
   const newsModal = document.getElementById('news-modal');
