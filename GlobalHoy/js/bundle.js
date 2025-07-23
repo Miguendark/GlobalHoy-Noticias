@@ -407,84 +407,31 @@ btnIrArriba.addEventListener("click", () => {
 
 // recomendados.js
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const recomendadosCont = document.getElementById("recomendadosNews");
   if (!recomendadosCont) return;
 
-  // Simulamos intereses guardados, por ejemplo:
-  // localStorage.setItem('intereses', JSON.stringify(['Tecnología', 'Deportes']));
-  let intereses = JSON.parse(localStorage.getItem("intereses")) || [];
+  recomendadosCont.innerHTML = "<p>Cargando recomendaciones...</p>"; // Mensaje de carga
 
-  // Noticias de ejemplo por categoría
-  const noticiasPorCategoria = {
-    Tecnología: [
-      {
-        titulo: "Avances revolucionarios en IA",
-        resumen: "Las últimas innovaciones en inteligencia artificial están transformando el mundo.",
-        imagen: "https://karlobag.eu/images/upload/750px-rgjcd.jpg",
-        enlace: "#",
-      },
-      {
-        titulo: "Gadgets que debes conocer en 2025",
-        resumen: "Una lista de dispositivos tecnológicos que marcarán tendencia.",
-        imagen: "https://noro.mx/wp-content/uploads/2024/12/gadgets-avances-tecnologicos-2025-1-1280x720.png",
-        enlace: "#",
-      },
-    ],
-    Deportes: [
-      {
-        titulo: "Campeonatos internacionales próximos",
-        resumen: "Calendario y previsiones para los eventos deportivos más esperados.",
-        imagen: "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/IV4JPZCE35HRPBLFX426SJTAMA.jpg",
-        enlace: "#",
-      },
-      {
-        titulo: "Historias inspiradoras de atletas",
-        resumen: "Conoce a los deportistas que están cambiando el juego.",
-        imagen: "https://idmphsmkuxkn.compat.objectstorage.us-ashburn-1.oraclecloud.com/pandora-bucket/uploads/2023/02/marileidy-1024x576.jpg",
-        enlace: "#",
-      },
-    ],
-    // Puedes agregar más categorías y noticias...
-  };
+  try {
+    // Obtener noticias generales para recomendaciones
+    const recommendedNews = await obtenerNoticiasDesdeAPI('general', 'recommended', 6); // Obtener 6 noticias recomendadas
 
-  // Si no hay intereses, mostramos recomendaciones generales
-  if (intereses.length === 0) {
-    intereses = Object.keys(noticiasPorCategoria);
-  }
+    recomendadosCont.innerHTML = ""; // Limpiar mensaje de carga
 
-  recomendadosCont.innerHTML = "";
+    if (recommendedNews.length === 0) {
+      recomendadosCont.innerHTML = "<p>No hay recomendaciones de noticias disponibles.</p>";
+      return;
+    }
 
-  intereses.forEach((categoria) => {
-    const noticias = noticiasPorCategoria[categoria];
-    if (!noticias) return;
-
-    noticias.forEach((noticia) => {
-      const articulo = document.createElement("article");
-      articulo.classList.add("news-item", "reveal");
-
-      // Optimización de imagen con images.weserv.nl
-      const imageUrl = noticia.imagen.startsWith('http') 
-        ? `https://images.weserv.nl/?url=${encodeURIComponent(noticia.imagen)}&w=400&h=230&fit=cover&q=80&output=webp`
-        : `https://placehold.co/400x230?text=${encodeURIComponent(noticia.titulo)}`;
-
-      const image400 = imageUrl.replace('w=400', 'w=400');
-      const image800 = imageUrl.replace('w=400', 'w=800');
-
-      articulo.innerHTML = `
-        <picture>
-          <source srcset="${image400}" media="(max-width: 600px)">
-          <source srcset="${image800}" media="(min-width: 601px)">
-          <img src="${image400}" alt="${noticia.titulo}" loading="lazy" />
-        </picture>
-        <div class="news-content">
-          <h3><a href="${noticia.enlace}">${noticia.titulo}</a></h3>
-          <p>${noticia.resumen}</p>
-        </div>
-      `;
+    recommendedNews.forEach((noticia) => {
+      const articulo = crearArticuloNoticia(noticia);
       recomendadosCont.appendChild(articulo);
     });
-  });
+  } catch (error) {
+    recomendadosCont.innerHTML = "<p>Error al cargar las recomendaciones.</p>";
+    console.error("Error loading recommendations:", error);
+  }
 });
 
 // graficos.js
