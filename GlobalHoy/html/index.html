@@ -39,7 +39,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- Header -->
   <header id="header" class="sticky-header">
     <div class="container header-container">
-      <div class="logo">GlobalHoy</div>
+      <div class="logo" data-translate-key="global_hoy">GlobalHoy</div>
       <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
           <span class="hamburger-inner"></span>
@@ -47,21 +47,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </button>
       <nav class="main-nav" id="main-nav">
         <ul>
-          <li><a href="/internacional">Internacional</a></li>
-          <li><a href="/nacional">Nacional</a></li>
-          <li><a href="/tecnologia">Tecnología</a></li>
-          <li><a href="/deportes">Deportes</a></li>
-          <li><a href="/cultura">Cultura</a></li>
-          <li><a href="/opinion">Opinión</a></li>
+          <li><a href="/internacional" data-translate-key="international">Internacional</a></li>
+          <li><a href="/nacional" data-translate-key="national">Nacional</a></li>
+          <li><a href="/tecnologia" data-translate-key="technology">Tecnología</a></li>
+          <li><a href="/deportes" data-translate-key="sports">Deportes</a></li>
+          <li><a href="/cultura" data-translate-key="culture">Cultura</a></li>
+          <li><a href="/opinion" data-translate-key="opinion">Opinión</a></li>
         </ul>
       </nav>
       <div class="search-social">
-        <input type="search" id="searchInput" placeholder="Buscar noticias..." />
+        <input type="search" id="searchInput" placeholder="Buscar noticias..." data-translate-key="search_news"/>
         <div class="social-icons">
           <a href="#" aria-label="Facebook"><img src="/img/iconos/facebook.svg" alt="Facebook de GlobalHoy" /></a>
           <a href="#" aria-label="Twitter"><img src="/img/iconos/twitter.svg" alt="Twitter de GlobalHoy" /></a>
           <a href="#" aria-label="Instagram"><img src="/img/iconos/instagram.svg" alt="Instagram de GlobalHoy" /></a>
         </div>
+      </div>
+      <div class="language-switcher">
+        <button id="lang-en">EN</button>
+        <button id="lang-es">ES</button>
       </div>
     </div>
   </header>
@@ -102,7 +106,7 @@ atOptions = {
 
   <!-- Sección de Noticias del Día -->
   <section class="news-section" id="daily-news">
-    <h2>Noticias del Día</h2>
+    <h2 data-translate-key="news_of_the_day">Noticias del Día</h2>
     <div class="news-list" id="daily-news-container">
       <!-- Las noticias del día se cargarán aquí dinámicamente -->
     </div>
@@ -113,7 +117,7 @@ atOptions = {
 
     <!-- Internacional -->
     <section class="news-section" id="internacional">
-      <h2>Internacional</h2>
+      <h2 data-translate-key="international">Internacional</h2>
       <div class="news-list" id="internacionalNews">
         <!-- Noticias Internacional aquí -->
       </div>
@@ -124,7 +128,7 @@ atOptions = {
 
     <!-- Nacional -->
     <section class="news-section" id="nacional">
-      <h2>Nacional</h2>
+      <h2 data-translate-key="national">Nacional</h2>
       <div class="news-list" id="nacionalNews">
         <!-- Noticias Nacional aquí -->
       </div>
@@ -136,7 +140,7 @@ atOptions = {
 
     <!-- Tecnología -->
     <section class="news-section" id="tecnologia">
-      <h2>Tecnología</h2>
+      <h2 data-translate-key="technology">Tecnología</h2>
       <div class="news-list" id="tecnologiaNews">
         <!-- Noticias Tecnología aquí -->
       </div>
@@ -148,7 +152,7 @@ atOptions = {
 
     <!-- Deportes -->
     <section class="news-section" id="deportes">
-      <h2>Deportes</h2>
+      <h2 data-translate-key="sports">Deportes</h2>
       <div class="news-list" id="deportesNews">
         <!-- Noticias Deportes aquí -->
       </div>
@@ -159,7 +163,7 @@ atOptions = {
 
     <!-- Cultura -->
     <section class="news-section" id="cultura">
-      <h2>Cultura</h2>
+      <h2 data-translate-key="culture">Cultura</h2>
       <div class="news-list" id="culturaNews">
         <!-- Noticias Cultura aquí -->
       </div>
@@ -170,7 +174,7 @@ atOptions = {
 
     <!-- Opinión -->
     <section class="news-section" id="opinion">
-      <h2>Opinión</h2>
+      <h2 data-translate-key="opinion">Opinión</h2>
       <div class="news-list" id="opinionNews">
         <!-- Noticias Opinión aquí -->
       </div>
@@ -181,7 +185,7 @@ atOptions = {
 
     <!-- Noticias recomendadas -->
     <section class="news-section" id="recomendados">
-      <h2>Recomendados para ti</h2>
+      <h2 data-translate-key="recommended_for_you">Recomendados para ti</h2>
       <div class="news-list" id="recomendadosNews">
         <!-- Noticias recomendadas aquí -->
       </div>
@@ -189,27 +193,27 @@ atOptions = {
 
     <!-- Gráficos interactivos -->
     <section class="news-section" id="graficos">
-      <h2>Estadísticas y datos</h2>
+      <h2 data-translate-key="statistics_and_data">Estadísticas y datos</h2>
       <canvas id="graficoOpiniones" width="400" height="200"></canvas>
     </section>
 
   </main>
 
   <!-- Botón "Ir arriba" -->
-  <button id="btnIrArriba" title="Ir arriba">&#8679;</button>
+  <button id="btnIrArriba" title="Ir arriba" data-translate-key="go_to_top">&#8679;</button>
 
   <!-- Footer -->
   <footer>
     <div class="container footer-container">
-      <p>© 2025 GlobalHoy. Todos los derechos reservados.</p>
+      <p data-translate-key="copyright">© 2025 GlobalHoy. Todos los derechos reservados.</p>
       <nav class="footer-nav">
-        <a href="/politica-anuncios">Política de privacidad</a> |
-        <a href="/politica-anuncios">Términos de uso</a>
+        <a href="/politica-anuncios" data-translate-key="privacy_policy">Política de privacidad</a> |
+        <a href="/politica-anuncios" data-translate-key="terms_of_use">Términos de uso</a>
       </nav>
       <form id="suscripcionForm" class="suscripcion-form">
-        <label for="emailSuscripcion">Suscríbete al boletín:</label>
-        <input type="email" id="emailSuscripcion" placeholder="Tu correo electrónico" required />
-        <button type="submit">Enviar</button>
+        <label for="emailSuscripcion" data-translate-key="subscribe_to_newsletter">Suscríbete al boletín:</label>
+        <input type="email" id="emailSuscripcion" placeholder="Tu correo electrónico" required data-translate-key="your_email_address"/>
+        <button type="submit" data-translate-key="submit">Enviar</button>
       </form>
       <div class="anuncio anuncio-footer" id="footer-anuncio">
         <script type="text/javascript">
@@ -229,6 +233,8 @@ atOptions = {
   <script async="async" data-cfasync="false" src="//pl27220170.profitableratecpm.com/15925c5aa47fe223b0cde930fc1c589d/invoke.js"></script>
   <script type='text/javascript' src='//pl27231576.profitableratecpm.com/d6/41/66/d641668cae69f56317108cd4a21360d3.js'></script>
   <script src="/js/bundle.js" defer></script>
+  <script src="/js/translations.js"></script>
+  <script src="/js/main.js"></script>
   <script type='text/javascript' src='//pl27231607.profitableratecpm.com/7b/e6/0b/7be60beb35b3bb7b13e253be8e55997d.js'></script>
 
 <div id="news-modal" class="news-modal">

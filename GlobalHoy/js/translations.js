@@ -1,0 +1,47 @@
+
+const translations = {
+  en: {
+    "global_hoy": "GlobalHoy",
+    "home": "Home",
+    "international": "International",
+    "national": "National",
+    "technology": "Technology",
+    "sports": "Sports",
+    "culture": "Culture",
+    "opinion": "Opinion",
+    "search_news": "Search news...",
+    "news_of_the_day": "News of the Day",
+    "load_more_news": "Load More News",
+    "recommended_for_you": "Recommended for you",
+    "statistics_and_data": "Statistics and data",
+    "copyright": "© 2025 GlobalHoy. All rights reserved.",
+    "privacy_policy": "Privacy Policy",
+    "terms_of_use": "Terms of Use",
+    "subscribe_to_newsletter": "Subscribe to the newsletter:",
+    "your_email_address": "Your email address",
+    "submit": "Submit",
+    "go_to_top": "Go to top"
+  },
+  es: {
+    "global_hoy": "GlobalHoy",
+    "home": "Inicio",
+    "international": "Internacional",
+    "national": "Nacional",
+    "technology": "Tecnología",
+    "sports": "Deportes",
+    "culture": "Cultura",
+    "opinion": "Opinión",
+    "search_news": "Buscar noticias...",
+    "news_of_the_day": "Noticias del Día",
+    "load_more_news": "Cargar Más Noticias",
+    "recommended_for_you": "Recomendados para ti",
+    "statistics_and_data": "Estadísticas y datos",
+    "copyright": "© 2025 GlobalHoy. Todos los derechos reservados.",
+    "privacy_policy": "Política de privacidad",
+    "terms_of_use": "Términos de uso",
+    "subscribe_to_newsletter": "Suscríbete al boletín:",
+    "your_email_address": "Tu correo electrónico",
+    "submit": "Enviar",
+    "go_to_top": "Ir arriba"
+  }
+};
