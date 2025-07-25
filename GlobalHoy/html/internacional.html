@@ -24,17 +24,39 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXX"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-  <header>
-    <h1>GlobalHoy - Internacional</h1>
-    <nav>
-      <a href="/">Inicio</a> |
-      <a href="/internacional">Internacional</a> |
-      <a href="/nacional">Nacional</a> |
-      <a href="/tecnologia">Tecnología</a> |
-      <a href="/deportes">Deportes</a> |
-      <a href="/cultura">Cultura</a> |
-      <a href="/opinion">Opinión</a>
-    </nav>
+  <!-- Header -->
+  <header id="header" class="sticky-header">
+    <div class="container header-container">
+      <div class="logo" data-translate-key="global_hoy">GlobalHoy</div>
+      <button class="hamburger-menu" id="hamburger-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
+      </button>
+      <nav class="main-nav" id="main-nav">
+        <ul>
+          <li><a href="/" data-translate-key="home">Inicio</a></li>
+          <li><a href="/internacional" data-translate-key="international">Internacional</a></li>
+          <li><a href="/nacional" data-translate-key="national">Nacional</a></li>
+          <li><a href="/tecnologia" data-translate-key="technology">Tecnología</a></li>
+          <li><a href="/deportes" data-translate-key="sports">Deportes</a></li>
+          <li><a href="/cultura" data-translate-key="culture">Cultura</a></li>
+          <li><a href="/opinion" data-translate-key="opinion">Opinión</a></li>
+        </ul>
+      </nav>
+      <div class="search-social">
+        <input type="search" id="searchInput" placeholder="Buscar noticias..." data-translate-key="search_news"/>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><img src="/img/iconos/facebook.svg" alt="Facebook de GlobalHoy" /></a>
+          <a href="#" aria-label="Twitter"><img src="/img/iconos/twitter.svg" alt="Twitter de GlobalHoy" /></a>
+          <a href="#" aria-label="Instagram"><img src="/img/iconos/instagram.svg" alt="Instagram de GlobalHoy" /></a>
+        </div>
+      </div>
+      <div class="language-switcher">
+        <button id="lang-en">EN</button>
+        <button id="lang-es">ES</button>
+      </div>
+    </div>
   </header>
   <main class="container">
     <section id="internacionalNews" class="news-list">
@@ -42,5 +64,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </section>
   </main>
   <script src="/js/bundle.js" defer></script>
+  <script src="/js/translations.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>
