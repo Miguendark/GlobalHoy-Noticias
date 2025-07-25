@@ -16,6 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+
+    // Vuelve a cargar las noticias en el idioma seleccionado
+    cargarNoticiasDiarias();
+    cargarNoticiasPorCategoria();
+    loadTrendingNews();
   };
 
   langEnBtn.addEventListener('click', () => setLanguage('en'));

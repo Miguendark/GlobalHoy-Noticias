@@ -35,7 +35,7 @@ window.addEventListener("load", revealOnScroll);
 // apiSimulada.js - Ahora usa la Netlify Function como proxy para NewsAPI
 
 // Función para obtener noticias de la Netlify Function
-async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10) {
+async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSize = 10, lang = 'es') {
   let url = `/.netlify/functions/news-proxy?`; // Apunta a la Netlify Function
   let params = '';
   const categoryLower = categoria.toLowerCase();
@@ -66,6 +66,7 @@ async function obtenerNoticiasDesdeAPI(categoria = 'general', query = '', pageSi
   }
 
   params += `&pageSize=${pageSize}`;
+  params += `&language=${lang}`;
 
   try {
     const response = await fetch(`${url}${params}`);
@@ -181,6 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
+    const lang = localStorage.getItem('language') || 'es';
+
     const loadMoreButton = document.getElementById(`load-more-${categoria}-news`);
 
     if (isInitialLoad) {
@@ -191,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const startIndex = currentPages[categoria] * newsPerPage;
     const endIndex = startIndex + newsPerPage;
 
-    const noticias = await obtenerNoticiasDesdeAPI(categoria, '', endIndex); // Obtener hasta el final de la página actual
+    const noticias = await obtenerNoticiasDesdeAPI(categoria, '', endIndex, lang); // Obtener hasta el final de la página actual
 
     if (isInitialLoad) {
       contenedor.innerHTML = ""; // Limpiar solo en la carga inicial
@@ -227,31 +230,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Cargar noticias diarias en la sección principal
-  async function cargarNoticiasDiarias() {
+  window.cargarNoticiasDiarias = async function () {
     await cargarNoticiasPaginadas('general', 'daily-news-container', true);
   }
 
   // Cargar noticias por categoría en las páginas correspondientes
-  const contenedores = document.querySelectorAll(".news-list");
-  if (contenedores.length > 0) {
-    const mapaIdCategoria = {
-      internacionalNews: "internacional",
-      nacionalNews: "nacional",
-      tecnologiaNews: "tecnologia",
-      deportesNews: "deportes",
-      culturaNews: "cultura",
-      opinionNews: "opinion",
-    };
+  window.cargarNoticiasPorCategoria = async function () {
+    const contenedores = document.querySelectorAll(".news-list");
+    if (contenedores.length > 0) {
+      const mapaIdCategoria = {
+        internacionalNews: "internacional",
+        nacionalNews: "nacional",
+        tecnologiaNews: "tecnologia",
+        deportesNews: "deportes",
+        culturaNews: "cultura",
+        opinionNews: "opinion",
+      };
 
-    contenedores.forEach(async (contenedor) => {
-      if (contenedor.children.length > 0) return; // No cargar si ya hay noticias
+      for (const contenedor of contenedores) {
+        const id = contenedor.id;
+        const categoria = mapaIdCategoria[id];
+        if (!categoria) continue;
 
-      const id = contenedor.id;
-      const categoria = mapaIdCategoria[id];
-      if (!categoria) return;
-
-      await cargarNoticiasPaginadas(categoria, id, true);
-    });
+        contenedor.innerHTML = ""; // Limpiar el contenedor antes de cargar nuevas noticias
+        await cargarNoticiasPaginadas(categoria, id, true);
+      }
+    }
   }
 
   // Event listener para el botón "Cargar Más Noticias" de la sección diaria
@@ -274,6 +278,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Cargar todo al iniciar
   cargarNoticiasDiarias();
+  cargarNoticiasPorCategoria();
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -356,29 +361,41 @@ document.addEventListener("DOMContentLoaded", () => {
 // trendingTicker.js
 
 // Ejemplo de noticias urgentes para mostrar en el ticker
-const trendingNews = [
-  "Última hora: Se lanza nueva vacuna contra la gripe.",
-  "Mercados internacionales al alza tras anuncio económico.",
-  "Deportes: Selección nacional clasifica a torneo mundial.",
-  "Tecnología: Nuevo smartphone con pantalla plegable presentado.",
-  "Cultura: Festival de cine internacional inicia este fin de semana."
-];
+const trendingNews = {
+  es: [
+    "Última hora: Se lanza nueva vacuna contra la gripe.",
+    "Mercados internacionales al alza tras anuncio económico.",
+    "Deportes: Selección nacional clasifica a torneo mundial.",
+    "Tecnología: Nuevo smartphone con pantalla plegable presentado.",
+    "Cultura: Festival de cine internacional inicia este fin de semana."
+  ],
+  en: [
+    "Breaking News: New flu vaccine launched.",
+    "International markets on the rise after economic announcement.",
+    "Sports: National team qualifies for world tournament.",
+    "Technology: New foldable smartphone unveiled.",
+    "Culture: International film festival kicks off this weekend."
+  ]
+};
 
 const tickerContent = document.getElementById("tickerContent");
 
 function loadTrendingNews() {
   if (!tickerContent) return;
 
+  const currentLang = localStorage.getItem('language') || 'es';
+  const newsToDisplay = trendingNews[currentLang] || trendingNews.es;
+
   // Limpiar contenido previo
   tickerContent.innerHTML = "";
 
   // Agregar noticias con separación
-  trendingNews.forEach((news, index) => {
+  newsToDisplay.forEach((news, index) => {
     const span = document.createElement("span");
     span.textContent = news;
 
     // Separador visual entre noticias
-    if (index < trendingNews.length - 1) {
+    if (index < newsToDisplay.length - 1) {
       span.textContent += "  •  ";
     }
 

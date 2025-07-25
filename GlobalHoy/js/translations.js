@@ -1,4 +1,3 @@
-
 const translations = {
   en: {
     "global_hoy": "GlobalHoy",
@@ -20,7 +19,16 @@ const translations = {
     "subscribe_to_newsletter": "Subscribe to the newsletter:",
     "your_email_address": "Your email address",
     "submit": "Submit",
-    "go_to_top": "Go to top"
+    "go_to_top": "Go to top",
+    "privacy_policy_title": "Use of Personal Data",
+    "privacy_policy_text": "At GlobalHoy, we are committed to protecting your privacy. The data collected is used solely to improve your experience.",
+    "ads_policy_title": "Advertising Policy",
+    "ads_policy_text_1": "Ads on our website may be personalized based on your activity and preferences, always respecting your privacy and without sharing sensitive data.",
+    "ads_policy_text_2": "We use cookies and similar technologies to display relevant ads.",
+    "options_control_title": "Options and Control",
+    "options_control_text": "You can manage your ad and privacy preferences through your browser settings or advertising platform links.",
+    "contact_title": "Contact",
+    "contact_text": "If you have questions or wish to request information about your data, contact us at "
   },
   es: {
     "global_hoy": "GlobalHoy",
@@ -42,6 +50,15 @@ const translations = {
     "subscribe_to_newsletter": "Suscríbete al boletín:",
     "your_email_address": "Tu correo electrónico",
     "submit": "Enviar",
-    "go_to_top": "Ir arriba"
+    "go_to_top": "Ir arriba",
+    "privacy_policy_title": "Uso de datos personales",
+    "privacy_policy_text": "En GlobalHoy nos comprometemos a proteger tu privacidad. Los datos recopilados se usan únicamente para mejorar tu experiencia.",
+    "ads_policy_title": "Política de anuncios",
+    "ads_policy_text_1": "Los anuncios en nuestra web pueden ser personalizados según tu actividad y preferencias, respetando siempre tu privacidad y sin compartir datos sensibles.",
+    "ads_policy_text_2": "Utilizamos cookies y tecnologías similares para mostrar anuncios relevantes.",
+    "options_control_title": "Opciones y control",
+    "options_control_text": "Puedes administrar tus preferencias de anuncios y privacidad a través de la configuración de tu navegador o los enlaces de las plataformas publicitarias.",
+    "contact_title": "Contacto",
+    "contact_text": "Si tienes dudas o quieres solicitar información sobre tus datos, contáctanos en "
   }
 };
