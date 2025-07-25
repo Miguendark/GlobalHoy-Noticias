@@ -1,1 +1,1 @@
-feat: Add translation to all pages
+feat: Add translation to politica-anuncios.html and update news loading logic
